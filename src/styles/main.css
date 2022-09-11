@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Roboto:wght@300&family=VT323&display=swap');
+
+:root {
+    --bg-colour: #F8F9FD;
+    --outline-colour: #333333;
+    --font-colour: #333333;
+    --gray: #d1d5db;
+}
+
+*,
+*::after,
+*::before {
+    font-family: 'Roboto', 'Acme', 'VT323', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+    color: var(--font-colour);
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    position: relative;
+    min-height: 100%;
+    overflow: auto;
+}
+
+body {
+    height: 100%;
+    background-color: var(--bg-colour);
+    
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+button {
+    background-color: var(--bg-colour);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* HEADER */
+
+header {
+    padding: 25px;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+/* MAIN */
+
+main {
+    min-height: calc(100vh - 69px - 114px);
+    padding: 50px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    /* overflow: auto; */
+}
+
+.clip-board {
+    width: clamp(550px,650px,35%);
+    height: 750px;
+    border: 5px solid var(--outline-colour);
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.clip-board-title {
+    min-height: 75px;
+    min-width: 45%;
+    margin-top: calc(-75px / 2);
+    background-color: var(--bg-colour);
+    border: 5px solid var(--outline-colour);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.add-clip-board {
+    font-size: 3rem;
+    width: clamp(550px,650px,35%);
+    height: 750px;
+    
+    border: 5px dashed var(--outline-colour);
+    border-radius: 15px;
+}
+
+.clip-board-tasks {
+    width: 85%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.clip-board-content {
+    
+    height: 50px;
+    width: 100%;
+}
+
+.task:hover {
+    /* cursor: pointer; */
+    background-color: var(--gray);
+}
+
+.priority-low {
+    border-left: 2px solid greenyellow;
+}
+
+
+
+button.add-task {
+    border: 2px dashed var(--outline-colour);
+    font-size: 1rem;
+}
+
+
+
+/* FOOTER */
+
+footer {
+    background-color: #333333;
+    /* position: fixed; */
+    /* left: 0; */
+    /* bottom: 0; */
+    min-height: 75px;
+    /* padding: 25px; */
+}
