@@ -167,6 +167,13 @@ button.add-task {
     font-size: 1rem;
 }
 
+.clip-board-delete-btn {
+    position: absolute;
+    align-self: flex-end;
+    padding: 10px 10px 0 0;
+    /* left: 50%; */
+}
+
 
 
 /* FOOTER */
