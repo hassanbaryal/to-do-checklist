@@ -82,10 +82,11 @@ main {
 }
 
 .clip-board-title {
+    background-color: var(--bg-colour);
     min-height: 75px;
     min-width: 45%;
     margin-top: calc(-75px / 2);
-    background-color: var(--bg-colour);
+    padding: 5px;
     border: 5px solid var(--outline-colour);
     border-radius: 10px;
     display: flex;
@@ -111,9 +112,16 @@ button.add-clip-board {
 }
 
 .clip-board-content {
-    
     height: 50px;
     width: 100%;
+    border-radius: 5px;
+}
+
+.task {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .task:hover {
@@ -122,10 +130,37 @@ button.add-clip-board {
 }
 
 .priority-low {
-    border-left: 2px solid greenyellow;
+    border-left: 3px solid #4ade80;
 }
 
+.priority-medium {
+    border-left: 3px solid #facc15;
+}
 
+.priority-high {
+    border-left: 3px solid #f87171;
+}
+
+.completion-check-box {
+    width: 25px;
+    height: 25px;
+    border: 3px solid var(--outline-colour);
+    border-radius: 5px;
+    background-position: center;
+}
+
+.completion-check-box.complete {
+    background-image: url('../assets/check.svg');
+}
+
+.task-title {
+    height: 20px;
+    width: 248px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
 button.add-task {
     border: 2px dashed var(--outline-colour);
