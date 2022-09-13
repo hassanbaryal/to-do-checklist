@@ -22,6 +22,10 @@
     pointer-events: auto;
 }
 
+html.modal-visible {
+    overflow: hidden;
+}
+
 .modal-container {
     background-color: var(--bg-colour);
     border-radius: 15px;
