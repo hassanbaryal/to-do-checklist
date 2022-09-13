@@ -5,6 +5,9 @@
     --outline-colour: #333333;
     --font-colour: #333333;
     --gray: #d1d5db;
+    --red: #f87171;
+    --green: #4ade80;
+    --yellow: #facc15;
 }
 
 *,
@@ -130,15 +133,15 @@ button.add-clip-board {
 }
 
 .priority-low {
-    border-left: 3px solid #4ade80;
+    border-left: 3px solid var(--green);
 }
 
 .priority-medium {
-    border-left: 3px solid #facc15;
+    border-left: 3px solid var(--yellow);
 }
 
 .priority-high {
-    border-left: 3px solid #f87171;
+    border-left: 3px solid var(--red);
 }
 
 .completion-check-box {
