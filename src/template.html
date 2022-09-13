@@ -17,14 +17,35 @@
             <div class="clip-board-title"><h1>Projects</h1></div>
             <div class="clip-board-tasks">
                 <div class="task clip-board-content">
-                    
+                    <div class="completion-check-box"></div>
+                    <div class="task-title">Help me</div>
+                    <p class="task-due-date">Due: <span class="due-date">Jun 8th</span></p>
+                    <!-- <div class="task-due-date">Due: <span class="due-date">Jun 8</span>
+                    </div> -->
+                    <img alt="Edit button" class="task-edit-btn">
+                    <img alt="Delete task button" class="task-delete-btn">
                     <!-- left border change colour depending on priority. details button. Due date in form of 'Jun 8th'. Edit butn. Trash btn. -->
 
                 </div>
                 <button type="button" class="add-task clip-board-content">+ Task</button>
             </div>
+            <img alt="Delete Clipboard button" class="clip-board-delete-btn">
         </div>
         <button type="button" class="add-clip-board">+ Clip-board</button>
+
+        <div class="modal">
+            <div class="modal-container" id="clip-board-modal">
+                <form action="" class="clip-board-form">
+                    <div class="form-row">
+                        <input type="text" id="title" placeholder="Title" required>
+                    </div>
+                    <div class="form-row buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
         
 
