@@ -97,6 +97,10 @@ main {
     align-items: center;
 }
 
+.clip-board-title h1 {
+    cursor: pointer;
+}
+
 button.add-clip-board {
     font-size: 3rem;
     width: clamp(550px,650px,35%);
@@ -174,7 +178,7 @@ button.add-task {
     position: absolute;
     align-self: flex-end;
     padding: 10px 10px 0 0;
-    /* left: 50%; */
+    cursor: pointer;
 }
 
 
