@@ -1,5 +1,24 @@
 import deleteImg from './assets/trash-2.svg';
-import './modals.js';
+import toggleModals, {toggleClipBoardModal} from './modals.js';
+
+// Clipboard library object
+const clipBoardLibrary = () => {
+    const library = [];
+
+    const getLibrary = () => {
+        return library;
+    };
+
+    const addToLibrary = (clipBoard) => {
+        library.push(clipBoard);
+    };
+
+    const deleteFromLibrary = (title) => {
+        //logic to find matching title and pop out of array
+    };
+
+    return {getLibrary, addToLibrary, deleteFromLibrary};
+};
 
 
 
@@ -12,6 +31,7 @@ const clipBoard = (title, node) => {
 
     const changeTitle = (newTitle) => {
         title = newTitle;
+        changeTitleDOM(title, node);
     };
 
     const getNode = () => {return node};
@@ -30,12 +50,40 @@ const clipBoard = (title, node) => {
     };
 
     //function to delete clipboard itself? (point to node in DOM)    
-    return {getTitle, getNode, deleteClipBoard};
+    return {getTitle, changeTitle, getNode, deleteClipBoard};
 };
 
 
-
+const addClipBoardBtn = document.querySelector('.add-clip-board');
 const clipBoardModal = document.querySelector('.modal.clipboard');
+
+addClipBoardBtn.addEventListener('click', () => {
+    toggleClipBoardModal();
+});
+
+const editClipBoardLibrary = (cbLibrary, mode, newTitle, currentTitle = '') => {
+    //mode == 1 refers to creating a new clipboard, while mode == 0 refers to editing an existing clipboard
+    if (mode) {
+        cbLibrary.addToLibrary(createClipBoard(newTitle));
+    } else {
+        cbLibrary.getLibrary().forEach(board => {console.log(board, board.getTitle())});
+        // console.log(currentTitle)
+        // const board = cbLibrary.getLibrary().find(board => {return board.getTitle() == currentTitle});
+        // console.log(board);
+        // board.changeTitle(newTitle);
+    };
+};
+
+const addToClipBoardLibrary = (cbLibrary, newTitle) => {
+    cbLibrary.addToLibrary(createClipBoard(newTitle));
+};
+
+const editInClipBoardLibrary = (cbLibrary, newTitle) => {
+    const board = cbLibrary.getLibrary().find(board => {
+        return board.getTitle() === clipBoardModal.dataset.title;
+    });
+    board.changeTitle(newTitle);
+};
 
 // Creates clipboard html, and creates clipboard object?
 const createClipBoard = (title) => {
@@ -52,23 +100,20 @@ const createClipBoard = (title) => {
     clipBoardNode.querySelector('.clip-board-delete-btn').src = deleteImg;
     // Insert node before add clipboard btn
     document.querySelector('.add-clip-board').parentNode.insertBefore(clipBoardNode, document.querySelector('.add-clip-board'));
-    //Create clipBoard html when add clipboard btn is pressed
-    //
+    
     const board = clipBoard(title, clipBoardNode);
     addClipBoardFunctionality(board);
     
     return board;
 };
 
-//createClipBoard calls function that adds functionality to certain elements i.e. createClipBoard sends the node and adds functionality to clipboard title(when clicked, modal pops up to change title), and delete clipboard button
-
 //This function adds functionality to the title, delete button of the clipboard, and add functionality to add task button
 const addClipBoardFunctionality = (board) => {
     const title = board.getNode().querySelector('.clip-board-title h1');
     title.addEventListener('click', (e) => {
-        clipBoardModal.classList.toggle('visible');
+        toggleClipBoardModal();
         clipBoardModal.classList.toggle('edit-mode');
-        // document.querySelector('html');
+        clipBoardModal.setAttribute('data-title', `${board.getTitle()}`);
     });
 
     const deleteBtn = board.getNode().querySelector('.clip-board-delete-btn');
@@ -83,6 +128,9 @@ const addClipBoardFunctionality = (board) => {
     });
 };
 
+const changeTitleDOM = (title, node) => {
+    node.querySelector('.clip-board-title h1').textContent = title;
+};
 
 // Dom manipulation (2 functions?). 1 for deleting tasks, and 1 for adding. MAYBE ADD THE FUNCTIONS IN TASKS.JS
 
@@ -92,4 +140,4 @@ const addClipBoardFunctionality = (board) => {
 //modals js for two functions for clipboard title: one for new clip board, and one for edit clipboard title. If edit is clicked, send id of clipboard clicked and toggle edit-title class for modal
 
 export default createClipBoard;
-export {clipBoard};
+export {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary, clipBoard};
