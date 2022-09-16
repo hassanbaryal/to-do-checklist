@@ -149,7 +149,7 @@ button.add-clip-board {
 }
 
 .completion-check-box {
-    width: 25px;
+    min-width: 25px;
     height: 25px;
     border: 3px solid var(--outline-colour);
     border-radius: 5px;
@@ -162,11 +162,16 @@ button.add-clip-board {
 
 .task-title {
     height: 20px;
-    width: 248px;
+    max-width: 296px;
+    flex-grow: 1;
     font-weight: 800;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.task-due-date {
+    min-width: fit-content;
 }
 
 button.add-task {
