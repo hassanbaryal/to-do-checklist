@@ -18,7 +18,7 @@
             <div class="clip-board-tasks">
                 <div class="task clip-board-content">
                     <div class="completion-check-box"></div>
-                    <div class="task-title">Help me</div>
+                    <div class="task-title">Help me Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, impedit? Sapiente cumque itaque, sunt ut ducimus hic minima placeat qui saepe, quo mollitia atque quidem deserunt, libero vitae enim natus!</div>
                     <p class="task-due-date">Due: <span class="due-date">Jun 8th</span></p>
                     <!-- <div class="task-due-date">Due: <span class="due-date">Jun 8</span>
                     </div> -->
@@ -38,6 +38,38 @@
                 <form action="" class="clip-board-form">
                     <div class="form-row">
                         <input type="text" id="title" placeholder="Title"  minlength="1" maxlength="25" required>
+                    </div>
+                    <div class="form-row buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal taskmodal">
+            <div class="modal-container" id="task-modal">
+                <form action="" class="task-form">
+                    <div class="form-row task-title-row">
+                        <input type="text" id="task-title" name="task-title" placeholder="Title"  minlength="1" maxlength="25" required>
+                    </div>
+                    <div class="form-row date-priority-row">
+                        <div>
+                            <label for="task-date">Due-date:</label>
+                            <input type="date" name="task-date" id="task-date">
+                        </div>
+                        <div>
+                            <label for="task-priority">Priority:</label>
+                            <select name="task-priority" id="task-priority">
+                                <option value="low">LO</option>
+                                <option value="medium">MED</option>
+                                <option value="high">HI</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-row description-row">
+                        <textarea name="task-description" id="task-description" cols="30" rows="9" placeholder="Description"></textarea>
                     </div>
                     <div class="form-row buttons">
                         <button type="submit">Submit</button>
