@@ -62,23 +62,76 @@ form {
     font-size: 2rem;
     padding: 5px;
     border: none;
+    background-color: var(--bg-colour);
 }
 
 .clip-board-form .buttons {
     gap: 10px;
 }
 
-.clip-board-form button {
+button {
     width: 40%;
     font-size: 1rem;
     border: 1px solid var(--outline-colour);
     border-radius: 5px;
 }
 
-.clip-board-form button[type='submit'] {
+button[type='submit'] {
     background-color: var(--green);
 }
 
-.clip-board-form button[type='button'] {
+.clip-board-form button[type='button'],
+.task-form button[type='button'] {
     background-color: var(--red);
+}
+
+
+/* TASKS MODAL  */
+
+#task-modal {
+    height: 350px;
+    width: 550px;
+    padding: 10px;
+}
+
+.task-form {
+    flex-flow: column;
+}
+
+#task-title {
+    width: 100%;
+    font-size: 2rem;
+    padding: 5px;
+    border: none;
+    background-color: var(--bg-colour);
+}
+
+.date-priority-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.date-priority-row div {
+    display: flex;
+    gap: 10px;
+}
+
+#task-description {
+    width: 100%;
+    font-size: 1rem;
+    resize: none;
+    border: none;
+    background-color: var(--bg-colour);
+}
+
+.task-form .buttons {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.task-form button {
+    height: 100%;
+    width: 45%;
 }
