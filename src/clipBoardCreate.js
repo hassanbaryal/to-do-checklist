@@ -1,5 +1,5 @@
 import deleteImg from './assets/trash-2.svg';
-import toggleModals, {toggleClipBoardModal} from './modals.js';
+import toggleModals, {toggleClipBoardModal, toggleTaskModal} from './modals.js';
 
 // Clipboard library object
 const clipBoardLibrary = () => {
@@ -27,6 +27,10 @@ const clipBoard = (title, node) => {
     //variable that stores all the tasks the clipboard contains
     const tasks = [];
 
+    const getTasks = () => {
+        return tasks;
+    };
+
     const getTitle = () => {return title};
 
     const changeTitle = (newTitle) => {
@@ -50,7 +54,7 @@ const clipBoard = (title, node) => {
     };
 
     //function to delete clipboard itself? (point to node in DOM)    
-    return {getTitle, changeTitle, getNode, deleteClipBoard};
+    return {getTasks, getTitle, changeTitle, getNode, deleteClipBoard};
 };
 
 
@@ -124,7 +128,7 @@ const addClipBoardFunctionality = (board) => {
     const addTaskBtn = board.getNode().querySelector('.add-task');
     addTaskBtn.addEventListener('click', ()=> {
         // make task modal popup
-
+        toggleTaskModal();
     });
 };
 

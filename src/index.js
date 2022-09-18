@@ -24,6 +24,12 @@ const boardFormSubmitBtn = document.querySelector('.clip-board-form button[type=
 const boardFormCancelBtn = document.querySelector('.clip-board-form button[type="button"]');
 const boardFormInput = document.querySelector('input#title');
 
+const taskForm = document.querySelector('.task-form');
+const taskFormSubmitBtn = document.querySelector('.task-form button[type="submit"]');
+const taskFormCancelBtn = document.querySelector('.task-form button[type="button"]');
+const taskFormInputs = document.querySelectorAll('.task-form input, #task-priority, #task-description');
+console.log(taskFormInputs);
+
 boardFormCancelBtn.addEventListener('click', (e) => {
     boardFormInput.value = '';
     toggleClipBoardModal();
@@ -38,14 +44,19 @@ boardFormSubmitBtn.addEventListener('click', (e) => {
         if (!e.composedPath()[4].classList.contains('edit-mode')) {
             addToClipBoardLibrary(cbLibrary, boardFormInput.value);
         } else {
-            cbLibrary.getLibrary().forEach(board => console.log(board.getTitle()));
             editInClipBoardLibrary(cbLibrary, boardFormInput.value);
-            cbLibrary.getLibrary().forEach(board => console.log(board.getTitle()));
         };
         boardFormCancelBtn.click();
     };
 });
 
+taskFormCancelBtn.addEventListener('click',  ()=> {
+
+});
+
+taskFormSubmitBtn.addEventListener('click',  ()=> {
+    e.preventDefault();
+});
 
 const checkFormValidity = (cbLibrary, whichForm, title) => {
     // form = 1 refers to clip board form, form = 0 refers to task form
@@ -66,4 +77,19 @@ const checkFormValidity = (cbLibrary, whichForm, title) => {
     };
 
     return false;
+};
+
+
+checkTaskFormValidity = (cbLibrary, boardTitle, taskTitle) => {
+    if (taskForm.checkValidity()) {
+        const board = cbLibrary.getLibrary().findIndex((board) => {return board.getTitle() == boardTitle});
+        
+        if (board.getTask().forEach(task => {
+            //get task title and compare to title passed as argument
+        })) {
+
+        }
+    } else {
+        alert('Ensure completion of required fields! (Markerd by *)');
+    };
 };
