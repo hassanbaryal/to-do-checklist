@@ -119,8 +119,8 @@ button[type='submit'] {
 #task-description {
     width: 100%;
     font-size: 1rem;
+    padding: 5px;
     resize: none;
-    border: none;
     background-color: var(--bg-colour);
 }
 
