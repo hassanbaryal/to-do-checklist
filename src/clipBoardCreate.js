@@ -42,7 +42,7 @@ const clipBoard = (title, node) => {
 
     const addTask = (task) => {
         tasks.push(task);
-        //call dom manipulation to add task to clipboard in dom (send node and task)
+        addTaskToClipBoardHtml(node, task);
     };
 
     const deleteTask = (id) => {
@@ -54,12 +54,13 @@ const clipBoard = (title, node) => {
     };
 
     //function to delete clipboard itself? (point to node in DOM)    
-    return {getTasks, getTitle, changeTitle, getNode, deleteClipBoard};
+    return {getTasks, getTitle, changeTitle, getNode, addTask, deleteTask, deleteClipBoard};
 };
 
 
 const addClipBoardBtn = document.querySelector('.add-clip-board');
 const clipBoardModal = document.querySelector('.modal.clipboard');
+const taskModal = document.querySelector('.modal.taskmodal');
 
 addClipBoardBtn.addEventListener('click', () => {
     toggleClipBoardModal();
@@ -129,6 +130,7 @@ const addClipBoardFunctionality = (board) => {
     addTaskBtn.addEventListener('click', ()=> {
         // make task modal popup
         toggleTaskModal();
+        taskModal.setAttribute('data-boardTitle', `${board.getTitle()}`);
     });
 };
 
@@ -136,6 +138,11 @@ const changeTitleDOM = (title, node) => {
     node.querySelector('.clip-board-title h1').textContent = title;
 };
 
+
+const addTaskToClipBoardHtml = (boardNode, task) => {
+    boardNode.querySelector('.add-task').parentNode.insertBefore(task.getNode(), boardNode.querySelector('.add-task'));
+    //insert task html before add task button
+};
 // Dom manipulation (2 functions?). 1 for deleting tasks, and 1 for adding. MAYBE ADD THE FUNCTIONS IN TASKS.JS
 
 
