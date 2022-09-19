@@ -41,6 +41,9 @@ const toggleTaskModal = () => {
     if (taskModal.dataset.title !== '') {
         taskModal.setAttribute('data-title', '');
     };
+    if (taskModal.dataset.boardtitle !== '') {
+        taskModal.setAttribute('data-boardtitle', '');
+    };
 };
 
 
