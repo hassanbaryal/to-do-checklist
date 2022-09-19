@@ -1,7 +1,8 @@
 import './styles/main.css';
 import './styles/modals.css';
-import toggleModals, {toggleClipBoardModal} from './modals.js';
+import toggleModals, {toggleClipBoardModal, toggleTaskModal} from './modals.js';
 import createClipBoard, {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
+import { createTask } from './tasks';
 
 import logo from './assets/clipboard.svg';
 import edit from './assets/edit.svg';
@@ -51,11 +52,26 @@ boardFormSubmitBtn.addEventListener('click', (e) => {
 });
 
 taskFormCancelBtn.addEventListener('click',  ()=> {
-
+    taskFormInputs.forEach(input => input.value = '');
+    toggleTaskModal();
 });
 
-taskFormSubmitBtn.addEventListener('click',  ()=> {
+taskFormSubmitBtn.addEventListener('click',  (e)=> {
     e.preventDefault();
+    const boardTitle = e.composedPath()[4].dataset.boardtitle; 
+    const board = cbLibrary.getLibrary().find(board => {
+        return board.getTitle() == boardTitle;
+    }); 
+
+     if (checkTaskFormValidity(cbLibrary, boardTitle, taskFormInputs[0].value)) {
+        if (!e.composedPath()[4].classList.contains('edit-mode')) {
+            board.addTask(createTask(taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value));
+        } else {
+            //edit task
+        };
+        taskFormCancelBtn.click();
+     };
+    console.log(e.composedPath()[4].classList);
 });
 
 const checkFormValidity = (cbLibrary, whichForm, title) => {
@@ -80,16 +96,20 @@ const checkFormValidity = (cbLibrary, whichForm, title) => {
 };
 
 
-checkTaskFormValidity = (cbLibrary, boardTitle, taskTitle) => {
+const checkTaskFormValidity = (cbLibrary, boardTitle, taskTitle) => {
     if (taskForm.checkValidity()) {
-        const board = cbLibrary.getLibrary().findIndex((board) => {return board.getTitle() == boardTitle});
+        const board = cbLibrary.getLibrary().find((board) => {return board.getTitle() == boardTitle});
+        console.log(boardTitle);
+        console.log(board);
         
-        if (board.getTask().forEach(task => {
-            //get task title and compare to title passed as argument
-        })) {
-
-        }
+        if (board.getTasks().findIndex(task => {
+            return task.getTitle() == taskTitle}) == -1) {
+                return true;
+        } else {
+            alert('Tasks in the same clipboard cannot have the same title!');
+        };
     } else {
         alert('Ensure completion of required fields! (Markerd by *)');
     };
+    return false;
 };
