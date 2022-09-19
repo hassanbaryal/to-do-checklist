@@ -168,10 +168,16 @@ button.add-clip-board {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .task-due-date {
     min-width: fit-content;
+}
+
+.task-edit-btn,
+.task-delete-btn {
+    cursor: pointer;
 }
 
 button.add-task {
