@@ -131,6 +131,11 @@ button.add-clip-board {
     gap: 10px;
 }
 
+.task.complete {
+    background-color: var(--gray);
+    text-decoration: line-through;
+}
+
 .task:hover {
     /* cursor: pointer; */
     background-color: var(--gray);
