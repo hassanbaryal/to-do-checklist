@@ -41,7 +41,7 @@ boardFormSubmitBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
     //e.path[4] selects the modal backdrop html element, where the modal container resides
-    if (checkFormValidity(cbLibrary, 1, boardFormInput.value)) {
+    if (checkBoardFormValidity(cbLibrary, boardFormInput.value)) {
         if (!e.composedPath()[4].classList.contains('edit-mode')) {
             addToClipBoardLibrary(cbLibrary, boardFormInput.value);
         } else {
@@ -74,23 +74,21 @@ taskFormSubmitBtn.addEventListener('click',  (e)=> {
     console.log(e.composedPath()[4].classList);
 });
 
-const checkFormValidity = (cbLibrary, whichForm, title) => {
+const checkBoardFormValidity = (cbLibrary, title) => {
     // form = 1 refers to clip board form, form = 0 refers to task form
-    if (whichForm) {
-        // Check to ensure title is between 1-25 characters
-        if (boardForm.checkValidity()) {
-            // Check to ensure existing clipboards dont have the same title
-            if (cbLibrary.getLibrary().findIndex((board) => {return board.getTitle() == title}) == -1) {
-                return true;
-            } else {
-                alert('Clipboards cannot have the same title!');
-            };
+
+    // Check to ensure title is between 1-25 characters
+    if (boardForm.checkValidity()) {
+        // Check to ensure existing clipboards dont have the same title
+        if (cbLibrary.getLibrary().findIndex((board) => { return board.getTitle() == title }) == -1) {
+            return true;
         } else {
-            alert('Invalid Submission! Ensure character length of 1-24');
+            alert('Clipboards cannot have the same title!');
         };
     } else {
-        //logic for task form validity
+        alert('Invalid Submission! Ensure character length of 1-24');
     };
+
 
     return false;
 };
