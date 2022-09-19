@@ -1,5 +1,5 @@
 import toggleModals, {toggleClipBoardModal} from './modals.js';
-import edit from './assets/edit.svg';
+import editImg from './assets/edit.svg';
 import deleteImg from './assets/trash-2.svg';
 
 // Task object
@@ -55,4 +55,33 @@ const editTaskDescription = (node, newDescription) => {
     
 };
 
+
+const createTask = (title, dueDate, priority, description = '') => {
+    console.log(priority)
+    const taskNode = document.createElement('div');
+    taskNode.classList.toggle('task');
+    taskNode.classList.toggle('clip-board-content');
+    taskNode.classList.toggle(`priority-${priority}`);
+    taskNode.id = title;
+
+    taskNode.insertAdjacentHTML('beforeend',`<div class="completion-check-box"></div>`);
+    taskNode.insertAdjacentHTML('beforeend',`<div class="task-title">${title}</div>`);
+    taskNode.insertAdjacentHTML('beforeend',`<p class="task-due-date">Due: <span class="due-date">${dueDate}</span></p>`);
+    taskNode.insertAdjacentHTML('beforeend',`<img alt="Edit button" class="task-edit-btn">`);
+    taskNode.querySelector('.task-edit-btn').src = editImg;
+    taskNode.insertAdjacentHTML('beforeend',`<img alt="Delete task button" class="task-delete-btn">`);
+    taskNode.querySelector('.task-delete-btn').src = deleteImg;
+
+    addTaskFunctionality(taskNode);
+    const newtask = task(taskNode, title, dueDate, priority, description);
+
+    return newtask;
+};
+
+
+const addTaskFunctionality = (node) => {
+    //add functionality to completion check box (add completion class to the box, and to the task itself. Add styling to grey out task and cross out the title), task title (just make it click edit button), edit button, and delete button
+};
+
 export default task;
+export {createTask};
