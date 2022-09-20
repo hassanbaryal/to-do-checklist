@@ -43,7 +43,7 @@ button {
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(0.95);
 }
 
 /* HEADER */
@@ -76,6 +76,7 @@ main {
 .clip-board {
     width: clamp(550px,650px,35%);
     height: 750px;
+    padding-bottom: 25px;
     border: 5px solid var(--outline-colour);
     border-radius: 15px;
     display: flex;
@@ -112,14 +113,18 @@ button.add-clip-board {
 
 .clip-board-tasks {
     width: 85%;
+    max-height: 100%;
     display: flex;
     flex-flow: column;
     align-items: center;
     gap: 15px;
+    overflow: auto;
+    /* overflow-x: visible; */
+
 }
 
 .clip-board-content {
-    height: 50px;
+    min-height: 50px;
     width: 100%;
     border-radius: 5px;
 }
@@ -195,17 +200,4 @@ button.add-task {
     align-self: flex-end;
     padding: 10px 10px 0 0;
     cursor: pointer;
-}
-
-
-
-/* FOOTER */
-
-footer {
-    background-color: #333333;
-    /* position: fixed; */
-    /* left: 0; */
-    /* bottom: 0; */
-    min-height: 75px;
-    /* padding: 25px; */
 }
