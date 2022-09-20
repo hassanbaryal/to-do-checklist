@@ -46,8 +46,10 @@ const clipBoard = (title, node) => {
         addTaskToClipBoardHtml(node, task);
     };
 
-    const deleteTask = (id) => {
+    const deleteTask = (taskToDelete) => {
         //logic to find correct task in tasks array, send to dom manipulation function to delete it from html, and then delete it from tasks array
+        let index = tasks.findIndex(task => task.getTitle() === taskToDelete.getTitle());
+        tasks.splice(index, 1);
     };
 
     const deleteClipBoard = () => {
@@ -58,7 +60,7 @@ const clipBoard = (title, node) => {
     return {getTasks, getTitle, changeTitle, getNode, addTask, deleteTask, deleteClipBoard};
 };
 
-
+const cbLibrary = clipBoardLibrary();
 const addClipBoardBtn = document.querySelector('.add-clip-board');
 const clipBoardModal = document.querySelector('.modal.clipboard');
 const taskModal = document.querySelector('.modal.taskmodal');
@@ -145,12 +147,15 @@ const addTaskToClipBoardHtml = (boardNode, task) => {
     boardNode.querySelector('.add-task').parentNode.insertBefore(task.getNode(), boardNode.querySelector('.add-task'));
     //insert task html before add task button
 };
-// Dom manipulation (2 functions?). 1 for deleting tasks, and 1 for adding. MAYBE ADD THE FUNCTIONS IN TASKS.JS
 
 
+const deleteTaskFromBoard = (taskToDelete, boardTitle) => {
+    const board = cbLibrary.getLibrary().find(board => board.getTitle() === boardTitle);
+    board.deleteTask(taskToDelete);
+};
 
 //ADD CLIPBOARD MODAL STUFF HERE
 //modals js for two functions for clipboard title: one for new clip board, and one for edit clipboard title. If edit is clicked, send id of clipboard clicked and toggle edit-title class for modal
 
-export default createClipBoard;
-export {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary, clipBoard};
+export default cbLibrary;
+export {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary, clipBoard, deleteTaskFromBoard};

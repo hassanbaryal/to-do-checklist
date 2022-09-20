@@ -1,5 +1,6 @@
 import {format, formatDistance, subDays} from 'date-fns';
 import {toggleTaskModal} from './modals.js';
+import { deleteTaskFromBoard } from './clipBoardCreate.js';
 import editImg from './assets/edit.svg';
 import deleteImg from './assets/trash-2.svg';
 
@@ -117,13 +118,12 @@ const addTaskFunctionality = (newTask, node) => {
 
     const deleteBtn = node.querySelector('.task-delete-btn');
     deleteBtn.addEventListener('click', (e) => {
-        
+        newTask.getNode().remove();
+        deleteTaskFromBoard(newTask, newTask.getBoardTitle());
     });
 };
 
 const formatDueDate = (dueDate) => {
-    console.log(dueDate);
-    console.log(typeof dueDate)
     let dueDateFormatted = dueDate.split('-');
     dueDateFormatted = format(new Date(dueDateFormatted[0], (Number(dueDateFormatted[1]) - 1), dueDateFormatted[2]), 'MMM do, yyyy');
     return dueDateFormatted;
