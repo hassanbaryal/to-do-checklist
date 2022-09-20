@@ -1,6 +1,5 @@
 import deleteImg from './assets/trash-2.svg';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
-import task from './tasks';
 
 // Clipboard library object
 const clipBoardLibrary = () => {
@@ -14,8 +13,9 @@ const clipBoardLibrary = () => {
         library.push(clipBoard);
     };
 
-    const deleteFromLibrary = (title) => {
-        //logic to find matching title and pop out of array
+    const deleteFromLibrary = (boardToDelete) => {
+        let index = library.findIndex(board => board.getTitle() === boardToDelete.getTitle());
+        library.splice(index, 1);
     };
 
     return {getLibrary, addToLibrary, deleteFromLibrary};
@@ -52,12 +52,9 @@ const clipBoard = (title, node) => {
         tasks.splice(index, 1);
     };
 
-    const deleteClipBoard = () => {
-
-    };
 
     //function to delete clipboard itself? (point to node in DOM)    
-    return {getTasks, getTitle, changeTitle, getNode, addTask, deleteTask, deleteClipBoard};
+    return {getTasks, getTitle, changeTitle, getNode, addTask, deleteTask};
 };
 
 const cbLibrary = clipBoardLibrary();
@@ -127,7 +124,8 @@ const addClipBoardFunctionality = (board) => {
 
     const deleteBtn = board.getNode().querySelector('.clip-board-delete-btn');
     deleteBtn.addEventListener('click', (e) => {
-        board.deleteClipBoard();
+        board.getNode().remove();
+        deleteBoardFromLibrary(board);
     });
 
     const addTaskBtn = board.getNode().querySelector('.add-task');
@@ -152,6 +150,10 @@ const addTaskToClipBoardHtml = (boardNode, task) => {
 const deleteTaskFromBoard = (taskToDelete, boardTitle) => {
     const board = cbLibrary.getLibrary().find(board => board.getTitle() === boardTitle);
     board.deleteTask(taskToDelete);
+};
+
+const deleteBoardFromLibrary = (boardToDelete) => {
+    cbLibrary.deleteFromLibrary(boardToDelete);
 };
 
 //ADD CLIPBOARD MODAL STUFF HERE
