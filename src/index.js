@@ -59,6 +59,7 @@ taskFormCancelBtn.addEventListener('click',  ()=> {
 
 taskFormSubmitBtn.addEventListener('click',  (e)=> {
     e.preventDefault();
+    console.log(e.composedPath());
     const boardTitle = e.composedPath()[4].dataset.boardtitle; 
     const board = cbLibrary.getLibrary().find(board => {
         return board.getTitle() == boardTitle;
@@ -66,12 +67,17 @@ taskFormSubmitBtn.addEventListener('click',  (e)=> {
 
      if (checkTaskFormValidity(taskForm, cbLibrary, boardTitle, taskFormInputs[0].value)) {
         if (!e.composedPath()[4].classList.contains('edit-mode')) {
-            board.addTask(createTask(taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value));
+            board.addTask(createTask(boardTitle, taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value));
         } else {
-            //edit task
+            const taskTitle = e.composedPath()[4].dataset.title;
+            const task = board.getTasks().find(task => task.getTitle() === taskTitle);
+            task.setTitle(taskFormInputs[0].value);
+            task.setDueDate(taskFormInputs[1].value);
+            task.setPriority(taskFormInputs[2].value);
+            task.setDescription(taskFormInputs[3].value);
         };
         taskFormCancelBtn.click();
      };
-    console.log(e.composedPath()[4].classList);
+    
 });
 

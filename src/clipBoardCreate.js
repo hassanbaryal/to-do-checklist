@@ -1,5 +1,6 @@
 import deleteImg from './assets/trash-2.svg';
-import toggleModals, {toggleClipBoardModal, toggleTaskModal} from './modals.js';
+import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
+import task from './tasks';
 
 // Clipboard library object
 const clipBoardLibrary = () => {
@@ -88,6 +89,7 @@ const editInClipBoardLibrary = (cbLibrary, newTitle) => {
         return board.getTitle() === clipBoardModal.dataset.title;
     });
     board.changeTitle(newTitle);
+    board.getTasks().forEach(task => task.setBoardTitle(newTitle));
 };
 
 // Creates clipboard html, and creates clipboard object?

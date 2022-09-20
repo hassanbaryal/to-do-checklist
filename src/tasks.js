@@ -1,11 +1,13 @@
 import {format, formatDistance, subDays} from 'date-fns';
-import toggleModals, {toggleClipBoardModal} from './modals.js';
+import {toggleTaskModal} from './modals.js';
 import editImg from './assets/edit.svg';
 import deleteImg from './assets/trash-2.svg';
 
 // Task object
-const task = (node, title, dueDate, priority, description = '') => {
+const task = (boardTitle, node, title, dueDate, priority, description = '') => {
     
+    const getBoardTitle = () => {return boardTitle};
+
     const getNode = () => {return node;};
 
     const getTitle = () => {return title;};
@@ -15,6 +17,10 @@ const task = (node, title, dueDate, priority, description = '') => {
     const getPriority = () => {return priority;};
 
     const getDescription = () => {return description;};
+
+    const setBoardTitle = (newBoardTitle) => {
+        boardTitle = newBoardTitle;
+    };
 
     const setTitle = (newTitle) => {
         title = newTitle;
@@ -27,37 +33,36 @@ const task = (node, title, dueDate, priority, description = '') => {
     };
 
     const setPriority = (newPriority) => {
+        editTaskPriority(node, priority, newPriority);
         priority = newPriority;
-        editTaskPriority(node, priority);
     };
 
     const setDescription = (newDescription) => {
         description = newDescription;
-        editTaskDescription(node, description);
     };
 
-    return {getNode, getTitle, getDueDate, getPriority, getDescription, setTitle, setDueDate, setPriority, setDescription};
+    return {getBoardTitle, getNode, getTitle, getDueDate, getPriority, getDescription, setBoardTitle, setTitle, setDueDate, setPriority, setDescription};
 };
 
+const taskModal = document.querySelector('.modal.taskmodal');
+const taskInputs = taskModal.querySelectorAll('.task-form input, #task-priority, #task-description');
 
 const editTaskTitle = (node, newTitle) => {
-    
+    node.querySelector('.task-title').textContent = newTitle;
 };
 
 const editTaskDueDate = (node, newDueDate) => {
-    
+    node.querySelector('.due-date').textContent = formatDueDate(newDueDate);
 };
 
-const editTaskPriority = (node, newPriority) => {
-    
-};
-
-const editTaskDescription = (node, newDescription) => {
-    
+const editTaskPriority = (node, currentPriority, newPriority) => {
+    node.classList.toggle(`priority-${currentPriority}`);
+    node.classList.toggle(`priority-${newPriority}`);
 };
 
 
-const createTask = (title, dueDate, priority, description = '') => {
+
+const createTask = (boardTitle, title, dueDate, priority, description = '') => {
     
     let dueDateFormatted = formatDueDate(dueDate);
 
@@ -75,20 +80,52 @@ const createTask = (title, dueDate, priority, description = '') => {
     taskNode.insertAdjacentHTML('beforeend',`<img alt="Delete task button" class="task-delete-btn">`);
     taskNode.querySelector('.task-delete-btn').src = deleteImg;
 
-    addTaskFunctionality(taskNode);
-    const newtask = task(taskNode, title, dueDate, priority, description);
+    
+    const newTask = task(boardTitle, taskNode, title, dueDate, priority, description);
+    addTaskFunctionality(newTask, taskNode);
 
-    return newtask;
+    return newTask;
 };
 
 
-const addTaskFunctionality = (node) => {
+const addTaskFunctionality = (newTask, node) => {
     //add functionality to completion check box (add completion class to the box, and to the task itself. Add styling to grey out task and cross out the title), task title (just make it click edit button), edit button, and delete button
+    
+
+    const completionBox = node.querySelector('.completion-check-box');
+    completionBox.addEventListener('click', (e) => {
+        completionBox.classList.toggle('complete');
+        node.classList.toggle('complete');
+    });
+
+    const editBtn = node.querySelector('.task-edit-btn');
+    editBtn.addEventListener('click', (e) => {
+        toggleTaskModal();
+        taskModal.classList.toggle('edit-mode');
+        taskModal.setAttribute('data-title', `${newTask.getTitle()}`);
+        taskModal.setAttribute('data-boardtitle', `${newTask.getBoardTitle()}`);
+        taskInputs[0].value = newTask.getTitle();
+        taskInputs[1].value = newTask.getDueDate();
+        taskInputs[2].value = newTask.getPriority();
+        taskInputs[3].value = newTask.getDescription();
+    });
+
+    const title = node.querySelector('.task-title');
+    title.addEventListener('click', (e) => {
+        editBtn.click();
+    });
+
+    const deleteBtn = node.querySelector('.task-delete-btn');
+    deleteBtn.addEventListener('click', (e) => {
+        
+    });
 };
 
 const formatDueDate = (dueDate) => {
+    console.log(dueDate);
+    console.log(typeof dueDate)
     let dueDateFormatted = dueDate.split('-');
-    dueDateFormatted = format(new Date(dueDateFormatted[0], dueDateFormatted[1], dueDateFormatted[2]), 'MMM do, yyyy');
+    dueDateFormatted = format(new Date(dueDateFormatted[0], (Number(dueDateFormatted[1]) - 1), dueDateFormatted[2]), 'MMM do, yyyy');
     return dueDateFormatted;
 };
 

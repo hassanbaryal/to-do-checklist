@@ -20,6 +20,8 @@ const toggleClipBoardModal = () => {
 };
 
 const toggleTaskModal = () => {
+    const taskInputs = taskModal.querySelectorAll('.task-form input, #task-priority, #task-description');
+
     taskModal.classList.toggle('visible');
     document.querySelector('html').classList.toggle('modal-visible');
     if (taskModal.classList.contains('edit-mode')) {
@@ -31,6 +33,7 @@ const toggleTaskModal = () => {
     if (taskModal.dataset.boardtitle !== '') {
         taskModal.setAttribute('data-boardtitle', '');
     };
+    taskInputs.forEach(input => input.value = '');
 };
 
 
