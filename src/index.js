@@ -1,7 +1,7 @@
 import './styles/main.css';
 import './styles/modals.css';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
-import createClipBoard, {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
+import cbLibrary, {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
 import { createTask } from './tasks';
 import { checkBoardFormValidity, checkTaskFormValidity } from './formValidity.js';
 
@@ -19,7 +19,7 @@ document.querySelector('.clip-board-delete-btn').src = deleteImg;
 
 
 
-const cbLibrary = clipBoardLibrary();
+
 
 const boardForm = document.querySelector('.clip-board-form');
 const boardFormSubmitBtn = document.querySelector('.clip-board-form button[type="submit"]');
@@ -59,14 +59,13 @@ taskFormCancelBtn.addEventListener('click',  ()=> {
 
 taskFormSubmitBtn.addEventListener('click',  (e)=> {
     e.preventDefault();
-    console.log(e.composedPath());
     const boardTitle = e.composedPath()[4].dataset.boardtitle; 
     const board = cbLibrary.getLibrary().find(board => {
         return board.getTitle() == boardTitle;
     }); 
-
-     if (checkTaskFormValidity(taskForm, cbLibrary, boardTitle, taskFormInputs[0].value)) {
-        if (!e.composedPath()[4].classList.contains('edit-mode')) {
+    let editmode = e.composedPath()[4].classList.contains('edit-mode') ? true:false;
+     if (checkTaskFormValidity(taskForm, cbLibrary, boardTitle, taskFormInputs[0].value, editmode)) {
+        if (!editmode) {
             board.addTask(createTask(boardTitle, taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value));
         } else {
             const taskTitle = e.composedPath()[4].dataset.title;

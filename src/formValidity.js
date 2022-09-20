@@ -19,14 +19,14 @@ const checkBoardFormValidity = (boardForm, cbLibrary, title) => {
 };
 
 
-const checkTaskFormValidity = (taskForm, cbLibrary, boardTitle, taskTitle) => {
+const checkTaskFormValidity = (taskForm, cbLibrary, boardTitle, taskTitle, editmode) => {
     if (taskForm.checkValidity()) {
         const board = cbLibrary.getLibrary().find((board) => {return board.getTitle() == boardTitle});
         console.log(boardTitle);
         console.log(board);
         
         if (board.getTasks().findIndex(task => {
-            return task.getTitle() == taskTitle}) == -1) {
+            return task.getTitle() == taskTitle}) == -1 || editmode) {
                 return true;
         } else {
             alert('Tasks in the same clipboard cannot have the same title!');
