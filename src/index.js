@@ -1,22 +1,12 @@
 import './styles/main.css';
 import './styles/modals.css';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
-import cbLibrary, {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
+import cbLibrary, {editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
 import { createTask } from './tasks';
 import { checkBoardFormValidity, checkTaskFormValidity } from './formValidity.js';
-
 import logo from './assets/clipboard.svg';
-import edit from './assets/edit.svg';
-import deleteImg from './assets/trash-2.svg';
 
 document.querySelector('.logo').src = logo;
-document.querySelector('.task-edit-btn').src = edit;
-document.querySelector('.task-delete-btn').src = deleteImg;
-document.querySelector('.clip-board-delete-btn').src = deleteImg;
-
-
-// ******************************************************************
-
 
 
 
@@ -30,7 +20,6 @@ const taskForm = document.querySelector('.task-form');
 const taskFormSubmitBtn = document.querySelector('.task-form button[type="submit"]');
 const taskFormCancelBtn = document.querySelector('.task-form button[type="button"]');
 const taskFormInputs = document.querySelectorAll('.task-form input, #task-priority, #task-description');
-console.log(taskFormInputs);
 
 boardFormCancelBtn.addEventListener('click', (e) => {
     boardFormInput.value = '';
