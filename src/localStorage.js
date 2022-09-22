@@ -14,8 +14,6 @@ if (storageAvailability) {
 
 
 
-
-
 const populateStorageWithBoard = (board) => {
     if (storageAvailability) {
         counter++;
@@ -37,7 +35,7 @@ const populateStorageWithTask = (task) => {
             title: task.getTitle(),
             dueDate: task.getDueDate(),
             priority: task.getPriority(),
-            decription: task.getDescription(),
+            description: task.getDescription(),
         })
         );
     };
@@ -46,7 +44,8 @@ const populateStorageWithTask = (task) => {
 
 const editBoardInStorage = (board, newTitle) => {
     if (storageAvailability) {
-        for (let i = 0; i < localStorage.length; i++) {
+        let i;
+        for (i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
             if (object.type === 'board' && object.title === board.getTitle()) break;
         };
@@ -56,7 +55,7 @@ const editBoardInStorage = (board, newTitle) => {
             title: newTitle,
         }));
 
-        for (let i = 0; i < localStorage.length; i++) {
+        for (i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
             if (object.type === 'task' && object.boardTitle === board.getTitle()) {
                 localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
@@ -65,8 +64,9 @@ const editBoardInStorage = (board, newTitle) => {
                     title: object.title,
                     dueDate: object.dueDate,
                     priority: object.priority,
-                    decription: object.description,
+                    description: object.description,
                 }));
+                break;
             };
         };
     };
@@ -74,36 +74,42 @@ const editBoardInStorage = (board, newTitle) => {
 
 const editTaskInStorage = (task, newTitle, newDueDate, newPriority, newDescription) => {
     if (storageAvailability) {
-        for (let i = 0; i < localStorage.length; i++) {
+        let i;
+        for (i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            if (object.type === 'task' && object.title === task.getTitle()) break;
+            if (object.type === 'task' && object.title === task.getTitle()) {
+                localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
+                    type: 'task',
+                    boardTitle: object.boardTitle,
+                    title: newTitle,
+                    dueDate: newDueDate,
+                    priority: newPriority,
+                    description: newDescription,
+                }));
+                break;
+            };
         };
-    
-        localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
-            type: 'task',
-            boardTitle: object.boardTitle,
-            title: newTitle,
-            dueDate: newDueDate,
-            priority: newPriority,
-            decription: newDescription,
-        }));
     };
 };
 
 
 const deleteBoardInStorage = (board) => {
     if (storageAvailability) {
-        for (let i = 0; i < localStorage.length; i++) {
+        let i;
+        for (i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            if (object.type === 'board' && object.title === board.getTitle()) break;
+            // Remove board
+            if (object.type === 'board' && object.title === board.getTitle()) localStorage.removeItem(localStorage.key(i));
+            // Remove associated tasks
+            if (object.type === 'task' && object.boardTitle === board.getTitle()) localStorage.removeItem(localStorage.key(i));
         };
-        localStorage.removeItem(localStorage.key(i));
     };
 };
 
 const deleteTaskInStorage = (task) => {
     if(storageAvailability) {
-        for (let i = 0; i < localStorage.length; i++) {
+        let i;
+        for (i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
             if (object.type === 'task' && object.title === task.getTitle()) break;
         };

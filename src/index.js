@@ -26,6 +26,7 @@ document.querySelector('.logo').src = logo;
                     return board.getTitle() == object.boardTitle;
                 });
                 board.addTask(createTask(object.boardTitle, object.title, object.dueDate, object.priority, object.description));
+                console.log(object.boardTitle, object.title, object.dueDate, object.priority, object.description);
             };
         };
     };
@@ -84,12 +85,14 @@ taskFormSubmitBtn.addEventListener('click',  (e)=> {
         } else {
             const taskTitle = e.composedPath()[4].dataset.title;
             const task = board.getTasks().find(task => task.getTitle() === taskTitle);
+            // Update local storage, if available
+            editTaskInStorage(task, taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value);
+
             task.setTitle(taskFormInputs[0].value);
             task.setDueDate(taskFormInputs[1].value);
             task.setPriority(taskFormInputs[2].value);
             task.setDescription(taskFormInputs[3].value);
-            // Update local storage, if available
-            editTaskInStorage(task, taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value);
+            
         };
         taskFormCancelBtn.click();
      };
