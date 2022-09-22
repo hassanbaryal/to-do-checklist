@@ -1,18 +1,11 @@
-
-
-
-
 let counter = 0;
 let storageAvailability = storageAvailable('localStorage');
-
 
 if (storageAvailability) {
     if (localStorage.length) {
         counter = localStorage.length;
     };
 };
-
-
 
 const populateStorageWithBoard = (board) => {
     if (storageAvailability) {
@@ -91,7 +84,6 @@ const editTaskInStorage = (task, newTitle, newDueDate, newPriority, newDescripti
         };
     };
 };
-
 
 const deleteBoardInStorage = (board) => {
     if (storageAvailability) {

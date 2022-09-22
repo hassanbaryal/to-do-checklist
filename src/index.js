@@ -48,7 +48,6 @@ boardFormCancelBtn.addEventListener('click', (e) => {
     toggleClipBoardModal();
 });
 
-
 boardFormSubmitBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -98,4 +97,3 @@ taskFormSubmitBtn.addEventListener('click',  (e)=> {
      };
     
 });
-

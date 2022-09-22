@@ -18,7 +18,6 @@ const checkBoardFormValidity = (boardForm, cbLibrary, title) => {
     return false;
 };
 
-
 const checkTaskFormValidity = (taskForm, cbLibrary, boardTitle, taskTitle, editmode) => {
     if (taskForm.checkValidity()) {
         const board = cbLibrary.getLibrary().find((board) => {return board.getTitle() == boardTitle});

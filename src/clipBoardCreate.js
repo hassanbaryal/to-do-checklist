@@ -1,6 +1,6 @@
 import deleteImg from './assets/trash-2.svg';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
-import {populateStorageWithBoard, editBoardInStorage, deleteBoardInStorage} from './localStorage.js';
+import {editBoardInStorage, deleteBoardInStorage} from './localStorage.js';
 
 // Clipboard library object
 const clipBoardLibrary = () => {
@@ -22,11 +22,8 @@ const clipBoardLibrary = () => {
     return {getLibrary, addToLibrary, deleteFromLibrary};
 };
 
-
-
 // Clipboard object
 const clipBoard = (title, node) => {
-    //variable that stores all the tasks the clipboard contains
     const tasks = [];
 
     const getTasks = () => {
@@ -48,13 +45,10 @@ const clipBoard = (title, node) => {
     };
 
     const deleteTask = (taskToDelete) => {
-        //logic to find correct task in tasks array, send to dom manipulation function to delete it from html, and then delete it from tasks array
         let index = tasks.findIndex(task => task.getTitle() === taskToDelete.getTitle());
         tasks.splice(index, 1);
     };
 
-
-    //function to delete clipboard itself? (point to node in DOM)    
     return {getTasks, getTitle, changeTitle, getNode, addTask, deleteTask};
 };
 
@@ -66,19 +60,6 @@ const taskModal = document.querySelector('.modal.taskmodal');
 addClipBoardBtn.addEventListener('click', () => {
     toggleClipBoardModal();
 });
-
-const editClipBoardLibrary = (cbLibrary, mode, newTitle, currentTitle = '') => {
-    //mode == 1 refers to creating a new clipboard, while mode == 0 refers to editing an existing clipboard
-    if (mode) {
-        cbLibrary.addToLibrary(createClipBoard(newTitle));
-    } else {
-        cbLibrary.getLibrary().forEach(board => {console.log(board, board.getTitle())});
-        // console.log(currentTitle)
-        // const board = cbLibrary.getLibrary().find(board => {return board.getTitle() == currentTitle});
-        // console.log(board);
-        // board.changeTitle(newTitle);
-    };
-};
 
 const addToClipBoardLibrary = (cbLibrary, newTitle) => {
     cbLibrary.addToLibrary(createClipBoard(newTitle));
@@ -145,12 +126,10 @@ const changeTitleDOM = (title, node) => {
     node.querySelector('.clip-board-title h1').textContent = title;
 };
 
-
 const addTaskToClipBoardHtml = (boardNode, task) => {
     boardNode.querySelector('.add-task').parentNode.insertBefore(task.getNode(), boardNode.querySelector('.add-task'));
     //insert task html before add task button
 };
-
 
 const deleteTaskFromBoard = (taskToDelete, boardTitle) => {
     const board = cbLibrary.getLibrary().find(board => board.getTitle() === boardTitle);
@@ -160,9 +139,6 @@ const deleteTaskFromBoard = (taskToDelete, boardTitle) => {
 const deleteBoardFromLibrary = (boardToDelete) => {
     cbLibrary.deleteFromLibrary(boardToDelete);
 };
-
-//ADD CLIPBOARD MODAL STUFF HERE
-//modals js for two functions for clipboard title: one for new clip board, and one for edit clipboard title. If edit is clicked, send id of clipboard clicked and toggle edit-title class for modal
 
 export default cbLibrary;
 export {clipBoardLibrary, editInClipBoardLibrary, addToClipBoardLibrary, clipBoard, deleteTaskFromBoard};

@@ -1,12 +1,5 @@
-
-
-
-
 const clipBoardModal = document.querySelector('.clipboard');
 const taskModal = document.querySelector('.taskmodal');
-
-
-
 
 const toggleClipBoardModal = () => {
     clipBoardModal.classList.toggle('visible');
@@ -35,7 +28,5 @@ const toggleTaskModal = () => {
     };
     taskInputs.forEach(input => input.value = '');
 };
-
-
 
 export {toggleClipBoardModal, toggleTaskModal};

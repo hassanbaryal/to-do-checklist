@@ -3,7 +3,7 @@ import deleteImg from './assets/trash-2.svg';
 import {format} from 'date-fns';
 import {toggleTaskModal} from './modals.js';
 import {deleteTaskFromBoard} from './clipBoardCreate.js';
-import {populateStorageWithTask, deleteTaskInStorage} from './localStorage.js';
+import {deleteTaskInStorage} from './localStorage.js';
 
 // Task object
 const task = (boardTitle, node, title, dueDate, priority, description = '') => {
@@ -62,8 +62,6 @@ const editTaskPriority = (node, currentPriority, newPriority) => {
     node.classList.toggle(`priority-${newPriority}`);
 };
 
-
-
 const createTask = (boardTitle, title, dueDate, priority, description = '') => {
     
     let dueDateFormatted = formatDueDate(dueDate);
@@ -87,7 +85,6 @@ const createTask = (boardTitle, title, dueDate, priority, description = '') => {
     addTaskFunctionality(newTask, taskNode);
     return newTask;
 };
-
 
 const addTaskFunctionality = (newTask, node) => {
 
