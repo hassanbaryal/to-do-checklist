@@ -1,10 +1,12 @@
 import './styles/main.css';
 import './styles/modals.css';
+import logo from './assets/clipboard.svg';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
 import cbLibrary, {editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
 import { createTask } from './tasks';
 import { checkBoardFormValidity, checkTaskFormValidity } from './formValidity.js';
-import logo from './assets/clipboard.svg';
+import {storageAvailability, editTaskInStorage} from './localStorage.js';
+
 
 document.querySelector('.logo').src = logo;
 
@@ -30,7 +32,7 @@ boardFormCancelBtn.addEventListener('click', (e) => {
 boardFormSubmitBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    //e.path[4] selects the modal backdrop html element, where the modal container resides
+    //e.composedPath[4] selects the modal backdrop html element, where the modal container resides
     if (checkBoardFormValidity(boardForm, cbLibrary, boardFormInput.value)) {
         if (!e.composedPath()[4].classList.contains('edit-mode')) {
             addToClipBoardLibrary(cbLibrary, boardFormInput.value);
@@ -63,6 +65,8 @@ taskFormSubmitBtn.addEventListener('click',  (e)=> {
             task.setDueDate(taskFormInputs[1].value);
             task.setPriority(taskFormInputs[2].value);
             task.setDescription(taskFormInputs[3].value);
+            // Update local storage, if available
+            editTaskInStorage(task, taskFormInputs[0].value, taskFormInputs[1].value, taskFormInputs[2].value, taskFormInputs[3].value);
         };
         taskFormCancelBtn.click();
      };

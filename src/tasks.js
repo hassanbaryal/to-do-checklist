@@ -1,8 +1,9 @@
-import {format, formatDistance, subDays} from 'date-fns';
-import {toggleTaskModal} from './modals.js';
-import { deleteTaskFromBoard } from './clipBoardCreate.js';
 import editImg from './assets/edit.svg';
 import deleteImg from './assets/trash-2.svg';
+import {format} from 'date-fns';
+import {toggleTaskModal} from './modals.js';
+import {deleteTaskFromBoard} from './clipBoardCreate.js';
+import {populateStorageWithTask, deleteTaskInStorage} from './localStorage.js';
 
 // Task object
 const task = (boardTitle, node, title, dueDate, priority, description = '') => {
@@ -84,14 +85,13 @@ const createTask = (boardTitle, title, dueDate, priority, description = '') => {
     
     const newTask = task(boardTitle, taskNode, title, dueDate, priority, description);
     addTaskFunctionality(newTask, taskNode);
-
+    // Update localStorage
+    populateStorageWithTask(newTask);
     return newTask;
 };
 
 
 const addTaskFunctionality = (newTask, node) => {
-    //add functionality to completion check box (add completion class to the box, and to the task itself. Add styling to grey out task and cross out the title), task title (just make it click edit button), edit button, and delete button
-    
 
     const completionBox = node.querySelector('.completion-check-box');
     completionBox.addEventListener('click', (e) => {
@@ -118,6 +118,8 @@ const addTaskFunctionality = (newTask, node) => {
 
     const deleteBtn = node.querySelector('.task-delete-btn');
     deleteBtn.addEventListener('click', (e) => {
+        // Update localStorage, if available
+        deleteTaskInStorage(newTask);
         newTask.getNode().remove();
         deleteTaskFromBoard(newTask, newTask.getBoardTitle());
     });

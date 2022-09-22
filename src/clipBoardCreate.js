@@ -1,5 +1,6 @@
 import deleteImg from './assets/trash-2.svg';
 import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
+import {populateStorageWithBoard, editBoardInStorage, deleteBoardInStorage} from './localStorage.js';
 
 // Clipboard library object
 const clipBoardLibrary = () => {
@@ -87,6 +88,8 @@ const editInClipBoardLibrary = (cbLibrary, newTitle) => {
     const board = cbLibrary.getLibrary().find(board => {
         return board.getTitle() === clipBoardModal.dataset.title;
     });
+    // Update localStorage if possible
+    editBoardInStorage(board, newTitle);
     board.changeTitle(newTitle);
     board.getTasks().forEach(task => task.setBoardTitle(newTitle));
 };
@@ -109,7 +112,8 @@ const createClipBoard = (title) => {
     
     const board = clipBoard(title, clipBoardNode);
     addClipBoardFunctionality(board);
-    
+    // Update localStorage if possible
+    populateStorageWithBoard(board);
     return board;
 };
 
@@ -124,6 +128,9 @@ const addClipBoardFunctionality = (board) => {
 
     const deleteBtn = board.getNode().querySelector('.clip-board-delete-btn');
     deleteBtn.addEventListener('click', (e) => {
+        // Update localStorage if possible
+        deleteBoardInStorage(board);
+
         board.getNode().remove();
         deleteBoardFromLibrary(board);
     });

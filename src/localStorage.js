@@ -136,4 +136,4 @@ function storageAvailable(type) {
     }
 }
 
-export {storageAvailability, populateStorageWithBoard, populateStorageWithTask, editBoardInStorage, editTaskInStorage, deleteBoardInStorage, editTaskInStorage};
+export {storageAvailability, populateStorageWithBoard, populateStorageWithTask, editBoardInStorage, editTaskInStorage, deleteBoardInStorage, deleteTaskInStorage};
