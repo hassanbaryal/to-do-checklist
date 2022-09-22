@@ -44,6 +44,54 @@ const populateStorageWithTask = (task) => {
 
 };
 
+const editBoardInStorage = (board, newTitle) => {
+    
+    if (storageAvailability) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'board' && object.title === board.getTitle()) break;
+        };
+
+        localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
+            type: 'board',
+            title: newTitle,
+        }));
+
+        for (let i = 0; i < localStorage.length; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'task' && object.boardTitle === board.getTitle()) {
+                localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
+                    type: 'task',
+                    boardTitle: newTitle,
+                    title: object.title,
+                    dueDate: object.dueDate,
+                    priority: object.priority,
+                    decription: object.description,
+                }));
+            };
+        };
+    };
+};
+
+const editTaskInStorage = (task, newTitle, newDueDate, newPriority, newDescription) => {
+    
+    if (storageAvailability) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'task' && object.title === task.getTitle()) break;
+        };
+    
+        localStorage.setItem(`${localStorage.key(i)}`, JSON.stringify({
+            type: 'task',
+            boardTitle: object.boardTitle,
+            title: newTitle,
+            dueDate: newDueDate,
+            priority: newPriority,
+            decription: newDescription,
+        }));
+    };
+};
+
 function storageAvailable(type) {
     let storage;
     try {
@@ -68,3 +116,5 @@ function storageAvailable(type) {
             (storage && storage.length !== 0);
     }
 }
+
+export {populateStorageWithBoard, populateStorageWithTask};
