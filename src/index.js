@@ -7,11 +7,31 @@ import { createTask } from './tasks';
 import { checkBoardFormValidity, checkTaskFormValidity } from './formValidity.js';
 import {storageAvailability, editTaskInStorage} from './localStorage.js';
 
-
 document.querySelector('.logo').src = logo;
 
-
-
+(() => {
+    if (storageAvailability) {
+        // Two seperate for loops because objects are reordered, and theres no gaurantee that the task being created has its associated clipboard already created
+        for (let i = 0; i < localStorage; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    
+            if (object.type === 'board') {
+                addToClipBoardLibrary(cbLibrary, object.title);
+            };
+        };
+    
+        for (let i = 0; i < localStorage; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'task') {
+                const board = cbLibrary.getLibrary().find(board => {
+                    return board.getTitle() == object.boardTitle;
+                });
+                board.addTask(createTask(object.boardTitle, object.title, object.dueDate, object.priority, object.description));
+            };
+        };
+    };
+    
+})();
 
 const boardForm = document.querySelector('.clip-board-form');
 const boardFormSubmitBtn = document.querySelector('.clip-board-form button[type="submit"]');
