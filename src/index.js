@@ -1,4 +1,3 @@
-localStorage.clear();
 import './styles/main.css';
 import './styles/modals.css';
 import logo from './assets/clipboard.svg';
@@ -6,19 +5,16 @@ import {toggleClipBoardModal, toggleTaskModal} from './modals.js';
 import cbLibrary, {editInClipBoardLibrary, addToClipBoardLibrary} from './clipBoardCreate.js';
 import { createTask } from './tasks';
 import { checkBoardFormValidity, checkTaskFormValidity } from './formValidity.js';
-import {storageAvailability, editTaskInStorage} from './localStorage.js';
+import {storageAvailability, populateStorageWithBoard, populateStorageWithTask, editTaskInStorage} from './localStorage.js';
 
 document.querySelector('.logo').src = logo;
 
 (() => {
     if (storageAvailability) {
         // Two seperate for loops because objects are reordered, and theres no gaurantee that the task being created has its associated clipboard already created
-        console.log('Here')
         for (let i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
             if (object.type === 'board') {
-                console.log(i, object.title, object);
                 addToClipBoardLibrary(cbLibrary, object.title);
             };
         };
@@ -29,8 +25,6 @@ document.querySelector('.logo').src = logo;
                 const board = cbLibrary.getLibrary().find(board => {
                     return board.getTitle() == object.boardTitle;
                 });
-                console.log(board);
-                console.log(object.boardTitle, object.title);
                 board.addTask(createTask(object.boardTitle, object.title, object.dueDate, object.priority, object.description));
             };
         };
