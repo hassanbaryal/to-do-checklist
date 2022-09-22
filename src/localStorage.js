@@ -29,7 +29,7 @@ const populateStorageWithTask = (task) => {
     if (storageAvailability) {
         counter++;
         localStorage.setItem(`task${counter}`, JSON.stringify({
-            type: `task${counter}`,
+            type: 'task',
             boardTitle: task.getBoardTitle(),
             title: task.getTitle(),
             dueDate: task.getDueDate(),
