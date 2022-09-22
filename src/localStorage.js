@@ -45,7 +45,6 @@ const populateStorageWithTask = (task) => {
 };
 
 const editBoardInStorage = (board, newTitle) => {
-    
     if (storageAvailability) {
         for (let i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
@@ -74,7 +73,6 @@ const editBoardInStorage = (board, newTitle) => {
 };
 
 const editTaskInStorage = (task, newTitle, newDueDate, newPriority, newDescription) => {
-    
     if (storageAvailability) {
         for (let i = 0; i < localStorage.length; i++) {
             const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
@@ -89,6 +87,27 @@ const editTaskInStorage = (task, newTitle, newDueDate, newPriority, newDescripti
             priority: newPriority,
             decription: newDescription,
         }));
+    };
+};
+
+
+const deleteBoardInStorage = (board) => {
+    if (storageAvailability) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'board' && object.title === board.getTitle()) break;
+        };
+        localStorage.removeItem(localStorage.key(i));
+    };
+};
+
+const deleteTaskInStorage = (task) => {
+    if(storageAvailability) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (object.type === 'task' && object.title === task.getTitle()) break;
+        };
+        localStorage.removeItem(localStorage.key(i));
     };
 };
 
@@ -117,4 +136,4 @@ function storageAvailable(type) {
     }
 }
 
-export {populateStorageWithBoard, populateStorageWithTask};
+export {storageAvailability, populateStorageWithBoard, populateStorageWithTask, editBoardInStorage, editTaskInStorage, deleteBoardInStorage, editTaskInStorage};
