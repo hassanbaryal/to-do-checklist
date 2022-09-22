@@ -7,10 +7,7 @@ let storageAvailability = storageAvailable('localStorage');
 
 if (storageAvailability) {
     if (!localStorage.length) {
-        //if there is something in storage. Each object will either be a clipboard or task. Each object will have 'type' key, with the value being either clipboard or task. Each will call different functions
-    
-    } else {
-        //if there isn't
+        counter = localStorage.length;
     };
 };
 
