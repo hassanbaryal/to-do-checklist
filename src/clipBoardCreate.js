@@ -112,8 +112,6 @@ const createClipBoard = (title) => {
     
     const board = clipBoard(title, clipBoardNode);
     addClipBoardFunctionality(board);
-    // Update localStorage if possible
-    populateStorageWithBoard(board);
     return board;
 };
 

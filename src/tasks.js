@@ -85,8 +85,6 @@ const createTask = (boardTitle, title, dueDate, priority, description = '') => {
     
     const newTask = task(boardTitle, taskNode, title, dueDate, priority, description);
     addTaskFunctionality(newTask, taskNode);
-    // Update localStorage
-    populateStorageWithTask(newTask);
     return newTask;
 };
 

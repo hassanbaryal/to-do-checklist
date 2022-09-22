@@ -5,11 +5,15 @@
 let counter = 0;
 let storageAvailability = storageAvailable('localStorage');
 
+
 if (storageAvailability) {
-    if (!localStorage.length) {
+    if (localStorage.length) {
         counter = localStorage.length;
+        console.log(`Counter is ${counter}`);
     };
 };
+
+
 
 
 
